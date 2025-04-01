@@ -6,42 +6,41 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
 
-import com.bumptech.glide.Glide;
 import com.guyi.class25b_andb_2.databinding.ActivityMainBinding;
+import com.guyi.common.MainActivity_Parent;
+import com.guyi.common.PaymentUtil;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends MainActivity_Parent {
 
     private ActivityMainBinding binding;
-    private String AD_API;
+
+    @Override
+    public String getSuccessMessage() {
+        return "Bit payment success";
+    }
+
+    @Override
+    public String getErrorMessage() {
+        return "Bit payment failed";
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+
+        AD_API = BuildConfig.ADMOB_APP_ID;
+        banner = binding.lblBanner;
+        imageView = binding.imgBackground;
+
+        super.onCreate(savedInstanceState);
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setTitle("Bit");
 
         binding.btnPay.setOnClickListener(v -> payClicked());
-
-        setBackground(R.drawable.img_back);
-        initBanner(AD_API);
-    }
-
-    private void initBanner(String api) {
-        binding.lblBanner.setText(api);
-    }
-
-    private void setBackground(int res) {
-        Glide
-                .with(this)
-                .load(res)
-                .centerCrop()
-                .into(binding.imgBackground);
     }
 
     private void payClicked() {
@@ -54,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 binding.anmCheck.setVisibility(View.VISIBLE);
                 binding.anmCheck.playAnimation();
                 binding.btnPay.setVisibility(View.VISIBLE);
+                success();
             }
 
             @Override

@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Class25B-Andb-2"
 include(":app")
+include(":common")
+include(":paypal")

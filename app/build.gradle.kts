@@ -17,6 +17,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "ADMOB_APP_ID", "\"key1111\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -30,11 +33,13 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
 }
 
 dependencies {
+    implementation(project(":common"))
 
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -45,5 +50,4 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     implementation(libs.lottie)
-    implementation(libs.glide)
 }
